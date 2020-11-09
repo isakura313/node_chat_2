@@ -1,5 +1,5 @@
 const express = require("express")
-port = process.env.PORT || 2000;
+port = process.env.PORT || 8080;
 
 const app = express();
 
@@ -21,26 +21,24 @@ const io = require("socket.io")(server)
 // можно будет видеть сообщения других людей
 // удалять редактировать?
 
-
 io.on("connection", (socket)=>{
+    // коннет у нас происходит при заходе в комнату
     console.log("Пришел новый пользователь")
     socket.username = "Anonim";
-})
+
 
 // смена имени
-socket.io("change_username", (data)=>{
+socket.on("change_username", (data)=>{
+    console.log("Попытка поменять имя")
     socket.username = data.username;
+    console.log(`Имя пользователя было изменено на ${socket.username}`)
 })
 
-socket.on("send_message", (data)=>{
-    if (data.message === ""){
-        return;
-    }
-    io.sockets.emit("add_mes", {
-        message: data.message,
-        username: data.username,
-        color: data.color
+socket.on("new_message", (data)=>{
+    // if (data.message === ""){
+    //     return;
+    // }
+    io.sockets.emit("add_mes", {message: data.message, username: data.username, color: data.color})
     })
 })
-
 

@@ -12,10 +12,10 @@ function getRand(arr) {
     return mod_num;
 }
 
-const socket = io.connect("http://localhost:8080")
+const socket = io.connect("http://localhost:8080/")
 
 const message = document.querySelector("#message"); // input
-const username = document.querySelector("username"); // input под имя
+const username = document.querySelector("#username"); // input под имя
 const send_username = document.querySelector("#send_username"); // Ккнопка отправки ника
 const send_message = document.querySelector("#send_message"); // кнопка отправки сообщения
 const chat = document.querySelector("#chat"); // cам чат
@@ -30,23 +30,31 @@ function display_name(name){
 display_name("Аноним");
 
 send_username.onclick = () =>{
+
     socket.emit("change_username", {username: username.value});
     display_name(username.value);
 }
 
 function sending_message(){
-    socket.emit("New_message", {message: message.value, color: user_color});
+    socket.emit("new_message", {username: username.value, message: message.value, color: user_color});
 }
 send_message.onclick = () => {
     sending_message();
 }
 // отправка сообщений на кнопку Enter
+document.addEventListener("keypress", (e)=>{
+    if(e.code == "Enter"){
+        sending_message();
+    }
+})
+
 
 socket.on('add_mes', (data)=>{
     let {username, message, color} = data;
-    chat.insertAdjacentHTML("beforebegin",
-        `<h5 class="has-text-light ${color}>
-                <span class="has-text-light">${message}</span>
+    chat.insertAdjacentHTML("beforeend",
+        `<h5 class="has-text-light ${color}">
+                ${username}
+                <span class="has-text-light"> ${message}</span>
                 </h5>`)
     message.value = "";
 })
