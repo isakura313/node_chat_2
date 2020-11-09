@@ -1,0 +1,11 @@
+#chat {
+    max-height: 800px;
+    height: 450px;
+    overflow:scroll;
+    border: 2px solid black;
+    padding: 5px 2px;
+}
+
+#chat h5{
+    margin-bottom: 5px;
+}

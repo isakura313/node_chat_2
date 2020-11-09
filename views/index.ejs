@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" const="text/html" ; charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Chat </title>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            defer
+    ></script>
+    <script src="code.js" defer></script>
+    <link rel="stylesheet" href="bulma.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="columns is-centered">
+    <div class="column is-half">
+        <h3 class="is-size-4" id="show_name">  <!-- здесь будет ник пользователя --></h3>
+        <div id="change_username" class="field">
+            <label for="name" class="label"> Введите ваше имя </label>
+            <input type="text" id="username" name="name" class="input" />
+            <button id="send_username" type="button" class="button is-danger">
+                поменять имя
+            </button>
+        </div>
+
+        <section id="chatroom" class="container is-fluid has-background-white">
+            <section id="chat">
+                <!-- будем здесь все наполнять с помощью javascript -->
+            </section>
+        </section>
+
+        <section id="input_zone">
+            <label for="message" class="label"> Введите ваше сообщение</label>
+            <input
+                    type="text"
+                    id="message"
+                    name="message"
+                    class="input is-medium"
+            />
+            <button class="button is-primary" id="send_message" type="button">
+                Отправить
+            </button>
+        </section>
+    </div>
+</div>
+</body>
+</html>
